@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serverless API Gateway Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">CLOUD COMPUTING PROJECT</p>
+      <h1>Serverless API Gateway</h1>
+      <p class="subtitle">Distributed Rate-Limiting &amp; Throttling Simulator</p>
+    </div>
+    <span class="status"><span class="dot"></span> Demo running</span>
+  </header>
+
+  <main>
+    <section class="metrics" aria-label="Request statistics">
+      <article class="metric"><span>Total Requests</span><strong id="total">0</strong><small>Requests sent in this session</small></article>
+      <article class="metric"><span>Allowed Requests</span><strong class="green" id="allowed">0</strong><small>HTTP 200 responses</small></article>
+      <article class="metric"><span>Throttled Requests</span><strong class="red" id="blocked">0</strong><small>HTTP 429 responses</small></article>
+      <article class="metric"><span>Rate Limit</span><strong>5 <em>/ min</em></strong><small>Demo limit per client</small></article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div><h2>API Request Simulator</h2><p>Send requests and see how a gateway responds when the limit is exceeded.</p></div>
+        <button id="sendBtn">＋ Send API Request</button>
+      </div>
+      <div class="limit-row">
+        <span>Current usage</span><strong id="usageLabel">0 of 5 requests</strong>
+      </div>
+      <div class="progress"><div id="progressBar"></div></div>
+      <div id="notice" class="notice neutral">Ready. Send a request to begin the simulation.</div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>Request Activity</h2><p>Recent API responses from this browser session.</p></div><button class="secondary" id="resetBtn">Reset Demo</button></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Request ID</th><th>Time</th><th>Endpoint</th><th>Status</th><th>Result</th></tr></thead>
+          <tbody id="activity"><tr class="empty"><td colspan="5">No requests yet. Click “Send API Request”.</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="info-grid">
+      <article class="panel"><h2>How it works</h2><ol><li>Client sends an API request.</li><li>Gateway checks the request counter.</li><li>Requests within the limit are accepted.</li><li>Excess requests receive HTTP 429 (Too Many Requests).</li></ol></article>
+      <article class="panel"><h2>Cloud architecture</h2><div class="architecture"><span>Client</span><b>→</b><span>API Gateway</span><b>→</b><span>Serverless Function</span><b>→</b><span>Shared Counter Store</span></div><p class="note">This website is a front-end simulator. A production distributed system would enforce limits on the server and use shared storage such as Redis or a managed database.</p></article>
+    </section>
+  </main>
+  <footer>Cloud Computing Project · Serverless API Gateway with Distributed Rate-Limiting and Throttling</footer>
+  <script src="script.js"></script>
+</body>
+</html>
